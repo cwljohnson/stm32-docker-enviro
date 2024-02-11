@@ -18,7 +18,6 @@ RUN apt-get update && apt-get install -y cmake
 # Download and install ARM toolchain
 RUN mkdir /opt/arm-gnu-toolchain
 RUN wget -O /opt/arm-gnu-toolchain/arm-gnu.tar.xz "https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz"
-# COPY ./arm-gnu-toolchain-13.2-arm-none-eabi.tar.xz /opt/arm-gnu-toolchain/arm-gnu.tar.xz
 RUN tar xvf /opt/arm-gnu-toolchain/arm-gnu.tar.xz --strip-components=1 -C /opt/arm-gnu-toolchain
 RUN rm /opt/arm-gnu-toolchain/arm-gnu.tar.xz
 ENV ARM_TOOLCHAIN="/opt/arm-gnu-toolchain/bin"
@@ -29,6 +28,10 @@ ENV PATH="${ARM_TOOLCHAIN}:${PATH}"
 
 # Install Ceedling
 RUN gem install ceedling
+
+# Pull in toolchain file
+RUN mkdir -p /opt/stm32
+COPY ./stm32_gcc.cmake /opt/stm32/
 
 # Set work directory
 WORKDIR /
