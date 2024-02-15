@@ -6,6 +6,8 @@ target_sources(${PROJECT_NAME} PRIVATE
     /opt/stm32/STM32CubeF2/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
     /opt/stm32/STM32CubeF2/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
     /opt/stm32/STM32CubeF2/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
+
+    /opt/stm32/STM32CubeF2/Drivers/STM32F2xx_HAL_Driver/Src/stm32f2xx_ll_usb.c
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -14,5 +16,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC
-    
+    USE_HAL_DRIVER
 )
