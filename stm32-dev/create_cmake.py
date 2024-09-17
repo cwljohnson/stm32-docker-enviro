@@ -2,6 +2,8 @@ import sys
 import re
 import os
 
+# arg1 is template file, arg2 is list file
+
 if len(sys.argv) < 3:
     exit()
 
