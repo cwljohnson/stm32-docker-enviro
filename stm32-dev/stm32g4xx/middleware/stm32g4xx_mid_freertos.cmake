@@ -21,26 +21,26 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_compile_definitions(${PROJECT_NAME} PUBLIC
 )
 
-if(FREERTOS_HEAP_1)
+if(FREERTOS_HEAP EQUAL 1)
 target_sources(${PROJECT_NAME} PRIVATE
     /opt/stm32/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_1.c
 )
-elseif(FREERTOS_HEAP_2)
+elseif(FREERTOS_HEAP EQUAL 2)
 target_sources(${PROJECT_NAME} PRIVATE
     /opt/stm32/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_2.c
 )
-elseif(FREERTOS_HEAP_3)
+elseif(FREERTOS_HEAP EQUAL 3)
 target_sources(${PROJECT_NAME} PRIVATE
     /opt/stm32/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_3.c
 )
-elseif(FREERTOS_HEAP_4)
+elseif(FREERTOS_HEAP EQUAL 4)
 target_sources(${PROJECT_NAME} PRIVATE
     /opt/stm32/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
 )
-elseif(FREERTOS_HEAP_5)
+elseif(FREERTOS_HEAP EQUAL 5)
 target_sources(${PROJECT_NAME} PRIVATE
     /opt/stm32/STM32CubeG4/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_5.c
 )
 else()
-    message(WARNING "No FreeRTOS heap has been selected!")
+    message(STATUS "No FreeRTOS heap has been selected!")
 endif()
