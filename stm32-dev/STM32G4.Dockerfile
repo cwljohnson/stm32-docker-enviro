@@ -1,6 +1,6 @@
 FROM cwljohnson/stm32-dev-base
 
-RUN cd /opt/stm32 && git clone --recursive https://github.com/STMicroelectronics/STM32CubeG4.git
+RUN cd /opt/stm32 && git clone --recursive --depth 1 --branch v1.6.3 https://github.com/STMicroelectronics/STM32CubeG4.git
 ENV CUBE_G4="/opt/stm32/STM32CubeG4"
 
 # Pull in CMake Driver Components
