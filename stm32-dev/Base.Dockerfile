@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Australia/Brisbane
 
 # Install base dependencies
-RUN apt-get update && apt-get install -y unzip build-essential git curl nano ruby sudo
+RUN apt-get update && apt-get install -y unzip build-essential git curl nano ruby sudo python3
 
 # Install dependencies - signing keys
 RUN apt-get update && apt-get install -y ca-certificates gpg wget
@@ -26,22 +26,6 @@ ENV ARMGCC_DIR="/opt/arm-gnu-toolchain"
 # Add ARM binaries to path
 ENV PATH="${ARM_TOOLCHAIN}:${PATH}"
 
-# # Install Python 3.8 from source (this is a requirement for arm-none-eabi-gdb for some reason)
-# ENV PYTHON_VERSION=3.8
-# RUN apt-get update && apt-get install -y zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev
-# RUN mkdir /opt/pythontmp
-# RUN wget -O /opt/pythontmp/pythonsource.tgz https://www.python.org/ftp/python/3.8.17/Python-3.8.17.tgz
-# RUN tar xvzf /opt/pythontmp/pythonsource.tgz --strip-components=1 -C /opt/pythontmp/
-# WORKDIR /opt/pythontmp
-# RUN ./configure --prefix=/opt/python/python${PYTHON_VERSION} --enable-shared --enable-optimizations --enable-ipv6 LDFLAGS=-Wl,-rpath=/opt/python/python${PYTHON_VERSION}/lib,--disable-new-dtags
-# RUN make -j 16
-# RUN make install
-# RUN rm -rf /opt/pythontmp
-
-# # update path
-# ENV PATH="/opt/python/python${PYTHON_VERSION}/bin:${PATH}"
-# ENV PYTHONHOME="/opt/python/python${PYTHON_VERSION}"
-
 # Install Ceedling
 RUN gem install --no-document ceedling -v 1.1.4
 
@@ -52,9 +36,12 @@ RUN chmod -R 777 /opt/stm32
 # Pull in toolchain file
 COPY ./stm32_gcc.cmake /opt/stm32/
 
+# Remove default ubuntu user, required for ubuntu docker images after 23
+RUN userdel -r ubuntu
+
 # Create user
 ARG USERNAME=developer
-ARG USER_UID=2000
+ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
