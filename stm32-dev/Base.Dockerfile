@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Australia/Brisbane
 
 # Install base dependencies
-RUN apt-get update && apt-get install -y unzip build-essential git curl nano ruby sudo python3
+RUN apt-get update && apt-get install -y unzip build-essential git curl nano ruby sudo python3 gdb
 
 # Install dependencies - signing keys
 RUN apt-get update && apt-get install -y ca-certificates gpg wget
@@ -27,7 +27,7 @@ ENV ARMGCC_DIR="/opt/arm-gnu-toolchain"
 ENV PATH="${ARM_TOOLCHAIN}:${PATH}"
 
 # Install Ceedling
-RUN gem install --no-document ceedling -v 1.1.4
+RUN gem install --no-document ceedling -v 1.1.7
 
 # Create STM32 folder to store sdk
 RUN mkdir -p /opt/stm32
